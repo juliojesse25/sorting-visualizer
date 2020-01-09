@@ -1,6 +1,7 @@
-const bubbleSort = function(unsortedArray, phases) {
+const bubbleSort = unsortedArray => {
   let isSorted = false;
   let lastUnsorted = unsortedArray.length - 1;
+  const phases = [];
   while (!isSorted) {
     isSorted = true;
     for (let i = 0; i < lastUnsorted; i++) {
@@ -12,7 +13,33 @@ const bubbleSort = function(unsortedArray, phases) {
     }
     lastUnsorted--;
   }
+  return phases;
 };
+
+const mergeSort = unsortedArray => {
+  // @todo
+
+  return [unsortedArray];
+};
+
+const quickSort = unsortedArray => {
+  // @todo
+
+  return [unsortedArray];
+};
+
+const heapSort = unsortedArray => {
+  // @todo
+
+  return [unsortedArray];
+};
+
+const insertionSort = unsortedArray => {
+  // @todo
+
+  return [unsortedArray];
+};
+
 function swap(indexA, indexB, array) {
   let temp = array[indexA];
   array[indexA] = array[indexB];
@@ -21,4 +48,8 @@ function swap(indexA, indexB, array) {
 
 export default {
   bubbleSort,
+  mergeSort,
+  quickSort,
+  heapSort,
+  insertionSort,
 };
