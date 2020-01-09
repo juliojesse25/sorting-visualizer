@@ -86,6 +86,11 @@ class Visualizer extends Component {
     this.setState({ delay: value });
   };
 
+  onHaltExecution = () => {
+    clearTimeout(this.state.timeoutID);
+    this.setState({ cancelExecution: true, phases: [] });
+  };
+
   render() {
     const { array, delay } = this.state;
 
@@ -129,6 +134,12 @@ class Visualizer extends Component {
             onClick={() => this.heapSort()}
           >
             Heap Sort
+          </button>
+          <button
+            className="btn btn-danger sort-button"
+            onClick={() => this.onHaltExecution()}
+          >
+            Halt Execution
           </button>
         </div>
         <div className="array-container">
