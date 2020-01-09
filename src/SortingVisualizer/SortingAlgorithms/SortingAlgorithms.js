@@ -1,27 +1,24 @@
-const bubbleSort = function*(array, callback, options) {
-  let isSorted = false
-  let lastUnsorted = array.length - 1
+const bubbleSort = function(unsortedArray, phases) {
+  let isSorted = false;
+  let lastUnsorted = unsortedArray.length - 1;
   while (!isSorted) {
-    isSorted = true
+    isSorted = true;
     for (let i = 0; i < lastUnsorted; i++) {
-      if (array[i] > array[i + 1]) {
-        swap(i, i + 1, array)
-        isSorted = false
-        callback({ [options.key]: array }, () => {})
+      if (unsortedArray[i] > unsortedArray[i + 1]) {
+        swap(i, i + 1, unsortedArray);
+        isSorted = false;
       }
-      yield array
+      phases.push([...unsortedArray]);
     }
-    lastUnsorted--
+    lastUnsorted--;
   }
-  //   return array
-}
-
+};
 function swap(indexA, indexB, array) {
-  let temp = array[indexA]
-  array[indexA] = array[indexB]
-  array[indexB] = temp
+  let temp = array[indexA];
+  array[indexA] = array[indexB];
+  array[indexB] = temp;
 }
 
 export default {
-  bubbleSort
-}
+  bubbleSort,
+};
