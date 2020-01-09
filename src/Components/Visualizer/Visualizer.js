@@ -3,6 +3,7 @@ import './Visualizer.scss';
 import sorts from '../../Logic/algorithms';
 import { randomIntFromInterval } from '../../Logic/helpers';
 import CustomSlider from '../CustomSlider/CustomSlider';
+import { VISUALIZER_CONSTANTS } from './Visualizer.constants';
 
 class Visualizer extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Visualizer extends Component {
       delay: 200,
       cancelExecution: false,
       timeoutID: null,
+      bars: 50,
     };
   }
 
@@ -22,9 +24,15 @@ class Visualizer extends Component {
   }
 
   resetArray() {
+    const { bars } = this.state;
     const array = [];
-    for (let i = 0; i < 50; i++) {
-      array.push(randomIntFromInterval(5, 150));
+    for (let i = 0; i < bars; i++) {
+      array.push(
+        randomIntFromInterval(
+          VISUALIZER_CONSTANTS.ARRAY_BAR_VALUE_MIN,
+          VISUALIZER_CONSTANTS.ARRAY_BAR_VALUE_MAX,
+        ),
+      );
     }
 
     clearTimeout(this.state.timeoutID);
@@ -32,7 +40,6 @@ class Visualizer extends Component {
   }
 
   mergeSort() {
-    // Implement merge sort here
     const { array } = this.state;
 
     const phases = sorts.mergeSort(array);
@@ -41,7 +48,6 @@ class Visualizer extends Component {
   }
 
   quickSort() {
-    // Implement quick sort here
     const { array } = this.state;
 
     const phases = sorts.quickSort(array);
@@ -50,8 +56,6 @@ class Visualizer extends Component {
   }
 
   bubbleSort() {
-    // Implement bubble sort here
-
     const { array } = this.state;
 
     const phases = sorts.bubbleSort(array);
@@ -60,7 +64,6 @@ class Visualizer extends Component {
   }
 
   heapSort() {
-    // Implement heap sort here
     const { array } = this.state;
 
     const phases = sorts.heapSort(array);
@@ -143,11 +146,15 @@ class Visualizer extends Component {
           </button>
         </div>
         <div className="array-container">
-          {array.map((value, idx) => (
+          {array.map((value, index) => (
             <div
               className="array-bar"
-              key={idx}
-              style={{ height: `${value * 5}px`, width: '20px' }}
+              key={index}
+              style={{
+                height: `${value *
+                  VISUALIZER_CONSTANTS.ARRAY_BAR_HEIGHT_MULTIPLIER}px`,
+                width: `${VISUALIZER_CONSTANTS.ARRAY_BAR_WIDTH}px`,
+              }}
             ></div>
           ))}
         </div>
