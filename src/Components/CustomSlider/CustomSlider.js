@@ -1,6 +1,6 @@
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
-import React, { Component } from 'react';
+import React from 'react';
 import Tooltip from 'rc-tooltip';
 import { Handle } from 'rc-slider';
 import Slider from 'rc-slider';
@@ -23,22 +23,25 @@ export const CustomHandle = props => {
 };
 
 export const CustomSlider = props => {
-  const { value, handleAfterChange } = props;
+  const { value, handleAfterChange, attribute, text, ...rest } = props;
 
   return (
     <div className="custom-slider">
-      <p>Select sorting delay in milliseconds</p>
+      <p>{text}</p>
+      <p>current value: {value}</p>
       <Slider
-        min={20}
-        max={2000}
+        {...rest}
         defaultValue={value}
         handle={CustomHandle}
-        onAfterChange={handleAfterChange}
+        onAfterChange={value => handleAfterChange(attribute, value)}
       />
     </div>
   );
 };
 
-export const GenerateCustomSlider = ({ CustomComponent, customProps }) => {
+export const GenerateCustomSlider = ({
+  CustomComponent = CustomSlider,
+  ...customProps
+}) => {
   return <CustomComponent {...customProps} />;
 };

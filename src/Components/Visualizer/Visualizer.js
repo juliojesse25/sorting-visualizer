@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import './Visualizer.scss';
 import _ from 'lodash';
+import './Visualizer.scss';
+import { GenerateCustomSlider } from '../CustomSlider/CustomSlider';
 import { sorts } from '../../Logic/algorithms';
-import { generateRandomArray, nameToString } from '../../Logic/helpers';
-import {
-  CustomSlider,
-  GenerateCustomSlider,
-} from '../CustomSlider/CustomSlider';
 import { DEFAULTS } from './Visualizer.constants';
+import { generateRandomArray, nameToString } from '../../Logic/helpers';
 
 const algorithms = _.keys(sorts);
 
@@ -22,6 +19,7 @@ class Visualizer extends Component {
       timeoutID: null,
       delay: DEFAULTS.DELAY,
       size: DEFAULTS.SIZE,
+      isSorting: false,
     };
   }
 
@@ -42,11 +40,19 @@ class Visualizer extends Component {
   };
 
   handleSort = sortType => {
-    const { array } = this.state;
+    const { array, isSorting } = this.state;
+
+    if (isSorting) {
+      this.onHaltExecution();
+    }
+
     const sort = sorts[sortType];
     const phases = sort(array);
 
-    this.setState({ phases, cancelExecution: false }, this.stepThroughPhases);
+    this.setState(
+      { phases, cancelExecution: false, isSorting: true },
+      this.stepThroughPhases,
+    );
   };
 
   stepThroughPhases = () => {
@@ -61,8 +67,8 @@ class Visualizer extends Component {
     });
   };
 
-  onHandleAfterChange = value => {
-    this.setState({ delay: value });
+  onHandleAfterChange = (attribute, value) => {
+    this.setState({ [attribute]: value });
   };
 
   onHaltExecution = () => {
@@ -71,15 +77,29 @@ class Visualizer extends Component {
   };
 
   render() {
-    const { array, delay } = this.state;
+    const { array, delay, size } = this.state;
 
     return (
-      <React.Fragment>
-        <div className="sort-options">
-          <CustomSlider
-            value={delay}
+      <div className="visualizer">
+        <div className="sliders">
+          <GenerateCustomSlider
+            attribute="delay"
             handleAfterChange={this.onHandleAfterChange}
+            max={1000}
+            min={5}
+            text="Select sorting delay in milliseconds"
+            value={delay}
           />
+          <GenerateCustomSlider
+            attribute="size"
+            handleAfterChange={this.onHandleAfterChange}
+            max={100}
+            min={15}
+            text="Select number of columns for next new array"
+            value={size}
+          />
+        </div>
+        <div className="sort-options">
           <button
             type="button"
             className="btn btn-warning sort-button"
@@ -101,7 +121,7 @@ class Visualizer extends Component {
           })}
           <button
             className="btn btn-danger sort-button"
-            onClick={() => this.onHaltExecution()}
+            onClick={this.onHaltExecution}
           >
             Halt Execution
           </button>
@@ -118,7 +138,7 @@ class Visualizer extends Component {
             ></div>
           ))}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

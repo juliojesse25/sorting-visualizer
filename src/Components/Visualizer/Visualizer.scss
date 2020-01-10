@@ -1,7 +1,9 @@
 .array-container {
-  position: absolute;
-  bottom: 0;
   overflow-x: auto;
+  margin-bottom: auto;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
 .array-bar {
@@ -12,4 +14,15 @@
 
 .sort-button {
   margin: 5px 10px;
+}
+
+.sliders {
+  display: flex;
+  justify-content: center;
+}
+
+.visualizer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
