@@ -46,10 +46,10 @@ function swap(indexA, indexB, array) {
   array[indexB] = temp;
 }
 
-export default {
-  bubbleSort,
-  mergeSort,
-  quickSort,
-  heapSort,
-  insertionSort,
+export const sorts = {
+  BUBBLE_SORT: bubbleSort,
+  MERGE_SORT: mergeSort,
+  QUICK_SORT: quickSort,
+  HEAP_SORT: heapSort,
+  INSERTION_SORT: insertionSort,
 };
