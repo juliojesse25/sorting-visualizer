@@ -1,0 +1,28 @@
+.array-container {
+  overflow-x: auto;
+  margin-bottom: auto;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.array-bar {
+  background-color: blue;
+  display: inline-block;
+  margin: 0 1px;
+}
+
+.sort-button {
+  margin: 5px 10px;
+}
+
+.sliders {
+  display: flex;
+  justify-content: center;
+}
+
+.visualizer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
